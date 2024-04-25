@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse 
 from calender.models import Case
@@ -55,6 +55,20 @@ def calender(request):
         form = CaseForm()
     context = {'form': form}
     return render(request, 'calender/calender.html', context)
+
+
+def update_case(request, case_id):
+    case_instance = get_object_or_404(Case, id=case_id)
+    if request.method == 'POST':
+        form = CaseForm(request.POST, instance=case_instance)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        form = CaseForm(instance=case_instance)
+    return render(request, 'calender/calender.html', {'form': form})
 
 
 
