@@ -1,0 +1,29 @@
+{% load crispy_forms_tags %}
+<div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Case</h5>
+                <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="eventForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    
+                    {% for f_lable in form %}
+                            
+                        {{f_lable|as_crispy_field}}
+                            
+                    {% endfor %}
+
+                </div>
+                <div class="modal-footer">
+                    <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                    <button type="submit" class="btn btn-primary" id="save_btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

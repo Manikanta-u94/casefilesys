@@ -1,0 +1,216 @@
+{% load i18n %}
+{% load i18n static %}
+{% block extrastyle %}{% endblock %}
+{% block extrahead %}{% endblock %}
+
+<head>
+    <title>Sign In | Event Calendar</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+
+    <link rel="icon" type="image/x-icon" href="{% static 'common/img/favicon.ico' %}" />
+
+     <link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/fontfamily.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/all.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarosel/dist/assets/owl.carousel.min.css' %}" />
+
+
+    <script src="{% static 'owlcarosel/dist/jquery-3.6.0.min.js' %}"></script>    
+    <script src="{% static 'owlcarosel/dist/owl.carousel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/log_images.js' %}"></script>
+
+</head>
+<style>
+    .container {
+        padding: 0px;
+        width: 100%;
+        height: 500px;
+        display: flex;
+        flex-direction: row;
+    }
+    label {
+        color: #000 !important;
+        font-size: 16px !important;
+}
+    .alert{
+        margin-top:-100px;
+        font-size: 13px;
+        font-weight: 600;
+        display: block;
+        color: #ba2121;
+        border: 1px solid #ba2121;
+        border-radius: 4px;
+        background-color: #fff;
+        background-position: 5px 12px;
+    }
+@media (max-width: 2000px){
+    .plog{
+        display:none;
+    }
+}
+
+@media (max-width: 2800px) and (orientation:landscape) {
+    .plog{
+        display:none;
+    }
+    .policy_right{
+        display: none;
+    }
+}
+
+@media (max-width: 450px){
+    .plog{
+        display:block;
+    }
+}
+
+@media (max-width: 767px){
+    .plog{
+        display:block;
+    }
+}
+.policy_right{
+    font-size: 9px;
+    line-height: 14px;
+    margin-top:28px;
+    text-align: justify;
+}
+
+@media (max-width: 1850px){
+    .policy_right{
+        display:none;
+    }
+}
+
+@media (max-width: 450px){
+    .login-form{
+        background: #1362d6;
+        padding: 102px 70px 165px;
+    }
+    .forgot_pwd{
+        color:white !important;
+    }
+    .container{
+        height:550px;
+    }
+    .policy_right{
+        display:block;
+        color:red;
+    }
+    .username_text{
+        color:#fff !important;
+    }
+    .pwd_text{
+        color:#fff !important;
+    }
+    .login-submit-row{
+        background:#1362d6;
+        border:none;
+    }
+}
+
+@media (max-width: 767px){
+    .login-form{
+        background: #1362d6;
+        padding: 102px 70px 165px;
+    }
+    .forgot_pwd{
+        color:white !important;
+    }
+    .container{
+        height:550px;
+    }
+    .policy_right{
+        display:block;
+    }
+    .username_text{
+        color:#fff !important;
+    }
+    .pwd_text{
+        color:#fff !important;
+    }
+    .login-submit-row{
+        background:#1362d6;
+        border:none;
+    }
+}
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="login-left" style="background: #1362d6;">
+                <div class="login-left1"></div>
+
+                <div class="main-content">
+                </div>
+               
+                <div class="policy_banner">
+                    {% block banner %}
+                    {% endblock %}
+                </div>
+            </div>
+            <form class="login-form" method="post" id="login-form" style="padding-top: 100px;">
+                {% csrf_token %}
+                    {% block useraccount %}{% endblock %}
+
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class="alert">
+                    {{ error }}
+                    <script type="text/javascript">
+                        setTimeout(function () {
+                            $('.alert').fadeOut();
+                          }, 15000);
+                        </script>
+                </p>
+                {% endfor %}
+                {% endif %}
+                <h3 class="mb-3 text-center" style="padding-left: 30%;padding-bottom: 20px;">Sign in</h3>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="label" for="email">Username</label>
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="label" for="password">Password</label>
+                            {{ form.password }} 
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn" style="background-color: #1362d6;border-color: #1362d6;color: #fff;">Sign In</button>
+                        </div>
+                    </div>
+
+                      
+                </div>
+                <p class="policy_right"></p>
+            </form>
+
+        </div>
+        <div class="container container-copyright">
+        <div class="copyright">
+            <p>&copy; 2024. All rights reserved. </p>
+        </div>
+        </div>
+    </div>
+    <div id="background" style="background-color: #1362d6;"></div>
+    <script  type="text/javascript">
+    </script>
+</body>
+<style>
+    
+</style>
